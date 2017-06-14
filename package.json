@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "google-maps-react": "^1.0.19",
+    "jquery-ajax": "^2.1.4",
     "react": "^15.6.0",
     "react-dom": "^15.6.0"
   },
