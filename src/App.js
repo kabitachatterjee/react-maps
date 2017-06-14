@@ -12,11 +12,24 @@ class App extends Component {
     super()
     this.state = {
       places : [],
+      windowPosition: null,
       showingInfoWindow: false,
       activeMarker: {},
       selectedPlace: {}
     }
+    this.onMarkerClick = this.onMarkerClick.bind(this);
   }
+  toggleInfoWindow = (loc) => {
+    // clicking 'x' in the info window will pass null, so if we detect that, reset the position in state
+    if (loc === null) {
+      this.setState({ windowPosition: null })
+      return
+    }
+    // otherwise get coords of clicked marker and set to state
+    // let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
+    // this.setState({ windowPosition: markerLoc })
+  }
+
 
   componentDidMount() {
     ParksModel.all().then( (res) => {
@@ -28,12 +41,15 @@ class App extends Component {
   }
   onMarkerClick(props,marker,e) {
     console.log("clicked ",props);
-    // this.setState({
-    //   showingInfoWindow: true,
-    //   selectedPlace: props,
-    //   activeMarker: marker
-    //   })
-  }
+    let markerLoc = { lat: props.mapCenter.lat, lng: props.mapCenter.lng }
+    console.log(markerLoc);
+    this.setState({
+      windowPosition: markerLoc,
+      showingInfoWindow: true,
+      selectedPlace: props,
+      activeMarker: marker
+      })
+    }
   onClose(infowindow) {
     console.log("Close info window");
 
@@ -49,10 +65,7 @@ class App extends Component {
                     position={{lat: park.lat, lng: park.lng}} />)}
 
 
-            <InfoWindow marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow} onOpen={this.windowHasOpened}
-              onClose={this.windowHasClosed}
-              visible={this.state.showingInfoWindow}>
+            <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onCloseclick={this.toggleInfoWindow}>
             </InfoWindow>
           </Map>
       </div>
@@ -61,6 +74,3 @@ class App extends Component {
 }
 
 export default App;
-
-// {this.state.places.map((park) => <Marker name={park.name}
-//         position={{lat: park.lat, lng: park.lng}} link={park.link} image={park.image} id={park._id} />)}
