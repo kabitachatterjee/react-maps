@@ -62,10 +62,15 @@ class App extends Component {
           <Map google={window.google} className={'map'} zoom={4} style={{width: '100%', height: '100%', position: 'relative'}}>
 
             {this.state.places.map((park) => <Marker onClick={this.onMarkerClick} name={park.name}
-                    position={{lat: park.lat, lng: park.lng}} />)}
+                    position={{lat: park.lat, lng: park.lng}} image={park.image} link={park.url}/>)}
 
 
-            <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow} onCloseclick={this.toggleInfoWindow}>
+            <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
+                <div>
+                <h3>{this.state.selectedPlace.name}</h3>
+                <img src={this.state.selectedPlace.image} /><br/>
+                <strong>More info: <a href={this.state.selectedPlace.link} target="_blank">{this.state.selectedPlace.image}</a></strong>
+              </div>
             </InfoWindow>
           </Map>
       </div>
