@@ -20,6 +20,8 @@
 img {
   width:350px;
   height:250px;
+  border: 1px solid #f75c54;
+  padding: 10px;
 }
 .Row-spacer {
   margin-bottom: 500px;
@@ -41,7 +43,13 @@ input {
     -webkit-box-shadow: 2px 2px 5px #9D9D9D;
     outline: none;
 }
-
+a {
+  text-decoration: none;
+  color: #1550d0;
+  }
+  h3,span{
+    color: #f75c54;
+  }
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

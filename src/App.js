@@ -68,7 +68,7 @@ class App extends Component {
           <div>
             <h3>{this.state.selectedPlace.name}</h3>
             <img src={this.state.selectedPlace.image} /><br/>
-            <strong>More info: <a href={this.state.selectedPlace.link} target="_blank">{this.state.selectedPlace.image}</a></strong>
+            <strong><span>More info: </span><a href={this.state.selectedPlace.link} target="_blank">{this.state.selectedPlace.image}</a></strong>
           </div>
         </InfoWindow>
         </Map>
