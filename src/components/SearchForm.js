@@ -9,6 +9,23 @@ class SearchForm extends Component {
       search: ''
     }
   }
+
+  onInputChange(event){
+    this.setState({
+      search : event.target.value
+    }
+    )
+  }
+  onFormSubmit(event){
+  console.log('form submitted')
+  // this line keeps the page from refreshing!
+  event.preventDefault()
+   let search = this.state.search
+   this.props.searchParks(search)
+  this.setState({
+    search: ''
+  })
+}
   render(){
     return (
       <div className='searchForm'>

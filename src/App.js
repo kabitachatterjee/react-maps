@@ -3,6 +3,7 @@ import logo from './logo.svg';
 //import MapContainer, {Container} from './containers/MapContainer.js';
 import './App.css';
 import Map, {Marker,InfoWindow} from 'google-maps-react';
+import SearchForm from './components/SearchForm';
 import ParksModel from './models/Parks';
 import $ from 'jquery-ajax';
 
@@ -19,16 +20,6 @@ class App extends Component {
     }
     this.onMarkerClick = this.onMarkerClick.bind(this);
   }
-  toggleInfoWindow = (loc) => {
-    // clicking 'x' in the info window will pass null, so if we detect that, reset the position in state
-    if (loc === null) {
-      this.setState({ windowPosition: null })
-      return
-    }
-    // otherwise get coords of clicked marker and set to state
-    // let markerLoc = { lat: loc.latLng.lat(), lng: loc.latLng.lng() }
-    // this.setState({ windowPosition: markerLoc })
-  }
 
 
   componentDidMount() {
@@ -36,8 +27,19 @@ class App extends Component {
       this.setState ({
         places: res
       })
+
       console.log(res)
     })
+
+  }
+  searchParks(search){
+    let placesOnSearch = this.state.places.filter(function(el) {
+      return el.name.toLowerCase().includes(search.toLowerCase())
+    });
+    this.setState({
+      places: placesOnSearch
+    })
+    console.log(placesOnSearch)
   }
   onMarkerClick(props,marker,e) {
     console.log("clicked ",props);
@@ -58,8 +60,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
-          <Map google={window.google} className={'map'} zoom={4} style={{width: '100%', height: '100%', position: 'relative'}}>
+      <SearchForm className="Row-spacer" searchParks={this.searchParks.bind(this)}/>
+        <Map className="Row-spacer" google={window.google} className={'map'} zoom={4} style={{width: '100%', height: '100%', position: 'relative'}}>
 
             {this.state.places.map((park) => <Marker onClick={this.onMarkerClick} name={park.name}
                     position={{lat: park.lat, lng: park.lng}} image={park.image} link={park.url}/>)}
@@ -73,6 +75,7 @@ class App extends Component {
               </div>
             </InfoWindow>
           </Map>
+
       </div>
     );
   }
