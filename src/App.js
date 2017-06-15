@@ -61,22 +61,18 @@ class App extends Component {
     return (
       <div className="App">
       <SearchForm className="Row-spacer" searchParks={this.searchParks.bind(this)}/>
-        <Map className="Row-spacer" google={window.google} className={'map'} zoom={4} style={{width: '100%', height: '100%', position: 'relative'}}>
-
-            {this.state.places.map((park) => <Marker onClick={this.onMarkerClick} name={park.name}
-                    position={{lat: park.lat, lng: park.lng}} image={park.image} link={park.url}/>)}
-
-
-            <InfoWindow marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
-                <div>
-                <h3>{this.state.selectedPlace.name}</h3>
-                <img src={this.state.selectedPlace.image} /><br/>
-                <strong>More info: <a href={this.state.selectedPlace.link} target="_blank">{this.state.selectedPlace.image}</a></strong>
-              </div>
-            </InfoWindow>
-          </Map>
-
-      </div>
+      <Map className="Row-spacer" google={window.google}    className={'map'} zoom={4} style={{width: '100%', height: '100%', margin:'20px 0 0 0', position: 'relative'}}>
+          {this.state.places.map((park) => <Marker    onClick={this.onMarkerClick} name={park.name}
+          position={{lat: park.lat, lng: park.lng}} image={park.image} link={park.url}/>)}
+        <InfoWindow style={{ backgroundColor: 'black', opacity: 0.75, padding: '20px' }} marker={this.state.activeMarker} visible={this.state.showingInfoWindow}>
+          <div>
+            <h3>{this.state.selectedPlace.name}</h3>
+            <img src={this.state.selectedPlace.image} /><br/>
+            <strong>More info: <a href={this.state.selectedPlace.link} target="_blank">{this.state.selectedPlace.image}</a></strong>
+          </div>
+        </InfoWindow>
+        </Map>
+        </div>
     );
   }
 }

@@ -29,7 +29,7 @@ class SearchForm extends Component {
   render(){
     return (
       <div className='searchForm'>
-        <h2>Search Parks Here!</h2>
+        <h2>National Parks Finder</h2>
         <form onSubmit={event => this.onFormSubmit(event)}>
         <input
         onChange={event => this.onInputChange(event)}
