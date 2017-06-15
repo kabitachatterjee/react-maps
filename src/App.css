@@ -47,7 +47,7 @@ a {
   text-decoration: none;
   color: #1550d0;
   }
-  h3,span{
+  h3,h2,span{
     color: #f75c54;
   }
 @keyframes App-logo-spin {
